@@ -25,3 +25,5 @@ WORKDIR $APPLICATION_DIR
 RUN echo "source /srv/virtenv/bin/activate" >> "/home/app/.bashrc"
 
 CMD ["/bin/bash"]
+
+VOLUME ["$APPLICATION_DIR"]
