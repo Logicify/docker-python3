@@ -15,14 +15,15 @@ RUN pip3 install virtualenv
 # Create virtual environment
 RUN cd /srv \
        && virtualenv --python=python3 virtenv \
-       && chown app:app -R /srv/virtenv
+       && chown -R app:app /srv/virtenv
        
-RUN mkdir $APPLICATION_DIR && chown app:app -R $APPLICATION_DIR && cd $APPLICATION_DIR
+RUN mkdir $APPLICATION_DIR && chown -R app:app $APPLICATION_DIR && cd $APPLICATION_DIR
        
 USER app
 WORKDIR $APPLICATION_DIR
 
-RUN echo "source /srv/virtenv/bin/activate" >> "/home/app/.bashrc"
+RUN echo "source /srv/virtenv/bin/activate" >> "/home/app/.bashrc" \
+    && echo "export LANG=en_US.utf8" >> /home/app/.bashrc
 
 CMD ["/bin/bash"]
 
