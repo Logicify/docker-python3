@@ -5,7 +5,8 @@ ENV APPLICATION_DIR="/srv/application"
 
 # Install required packages
 RUN yum -y install python34 python-virtualenv postgresql-devel gcc python34-devel \ 
- libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel
+ libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel \ 
+ libxslt-devel libxml2-devel
 
 # Install pip3
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3.4
