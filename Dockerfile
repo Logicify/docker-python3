@@ -4,12 +4,18 @@ MAINTAINER "Dmitry Berezovsky <dmitry.berezovsky@logicify.com>"
 ENV APPLICATION_DIR="/srv/application"
 
 # Install required packages
-RUN yum -y install python35 python-virtualenv postgresql-devel gcc python35-devel \ 
+RUN yum update -y; yum clean all
+RUN yum-builddep -y python; yum -y install make postgresql-devel gcc \ 
  libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel \ 
- libxslt-devel libxml2-devel
+ libxslt-devel libxml2-devel; yum clean all
 
-# Install pip3
-RUN curl https://bootstrap.pypa.io/get-pip.py | python3.5
+ENV PYTHON_VERSION="3.5.0"
+# Downloading and building python
+RUN mkdir /tmp/python-build && cd /tmp/python-build && \
+  curl https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz > python.tgz && \
+  tar xzf python.tgz && cd Python-$PYTHON_VERSION && \
+  ./configure --prefix=/usr/local && make install && cd / && rm -rf /tmp/python-build
+
 # install virtualenv
 RUN pip3 install virtualenv
 
